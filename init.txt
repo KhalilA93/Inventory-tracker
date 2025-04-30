@@ -1,0 +1,10 @@
+a command to init the folders and files for a mern "Inventory-tracker" project. The react front should have 3 major components, A GameComponent to allow the user to add a game/choose one from a dropdown list, A StorageSystem Component within the GameComponent that allows the user to add/choose a 'storage system' (IE bank, inventory, chest, box) and finally an ItemComponent that will store the actual item's data itself allowing for optional quantity size
+
+Next Steps
+1.	Implement the logic for each React component.
+2.	Set up the backend API endpoints and connect them to MongoDB.
+3.	Integrate the frontend with the backend using Axios or Fetch API.
+Let me know if you'd like help with any specific part of the implementation!
+
+khalilatkins420
+6nFpnpLRJGdSwDh4
