@@ -16,4 +16,24 @@ router.post("/", async (req, res) => {
   res.status(201).json(storageSystem);
 });
 
+// Delete a storage system by ID
+router.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Delete the storage system
+    const deletedStorage = await StorageSystem.findByIdAndDelete(id);
+    if (!deletedStorage) {
+      return res.status(404).json({ message: "Storage system not found" });
+    }
+
+    // Cascade delete: Remove associated items
+    await Item.deleteMany({ storage: id });
+
+    res.status(200).json({ message: "Storage system and associated items deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to delete storage system" });
+  }
+});
+
 module.exports = router;

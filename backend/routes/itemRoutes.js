@@ -16,4 +16,20 @@ router.post("/", async (req, res) => {
   res.status(201).json(item);
 });
 
+// Delete an item by ID
+router.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Delete the item
+    const deletedItem = await Item.findByIdAndDelete(id);
+    if (!deletedItem) {
+      return res.status(404).json({ message: "Item not found" });
+    }
+
+    res.status(200).json({ message: "Item deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to delete item" });
+  }
+});
 module.exports = router;
