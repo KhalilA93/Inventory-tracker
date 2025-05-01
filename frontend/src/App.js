@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useState } from "react";
+import GameComponent from "./components/GameComponent/GameComponent";
+import StorageSystem from "./components/StorageSystem/StorageSystem";
+import ItemComponent from "./components/ItemComponent/ItemComponent";
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [selectedGame, setSelectedGame] = useState("");
+    const [selectedStorage, setSelectedStorage] = useState("");
+
+    return (
+        <div className="App">
+            <h1>Inventory Tracker</h1>
+            {/* Game Component */}
+            <GameComponent onGameSelect={setSelectedGame} />
+
+            {/* Storage System Component */}
+            {selectedGame && (
+                <StorageSystem
+                    selectedGame={selectedGame}
+                    onStorageSelect={setSelectedStorage}
+                />
+            )}
+
+            {/* Item Component */}
+            {selectedGame && selectedStorage && (
+                <ItemComponent
+                    selectedGame={selectedGame}
+                    selectedStorage={selectedStorage}
+                />
+            )}
+        </div>
+    );
 }
 
 export default App;
