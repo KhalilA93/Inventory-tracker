@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const GameComponent = ({ onGameSelect }) => {
-    const [games, setGames] = useState(["MineCraft", "RuneScape 3L", "Ark"]); // Initial games
+    const [games, setGames] = useState([""]); // Initial games
     const [selectedGame, setSelectedGame] = useState("");
     const [newGame, setNewGame] = useState("");
 
