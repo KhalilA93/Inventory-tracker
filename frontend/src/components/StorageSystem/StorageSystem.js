@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 
 const StorageSystem = ({ selectedGame, onStorageSelect }) => {
-    const [storageSystems, setStorageSystems] = useState([
-        "Bank",
-        "Inventory",
-        "Chest",
-        "Box",
-    ]); // Predefined storage systems
+    const [storageSystems, setStorageSystems] = useState([]); // Removed defaults
     const [selectedStorage, setSelectedStorage] = useState("");
     const [newStorage, setNewStorage] = useState("");
 
@@ -19,8 +14,9 @@ const StorageSystem = ({ selectedGame, onStorageSelect }) => {
 
     // Handle adding a new storage system
     const handleAddStorage = () => {
-        if (newStorage.trim() && !storageSystems.includes(newStorage)) {
-            setStorageSystems([...storageSystems, newStorage]);
+        const trimmedStorage = newStorage.trim(); // Trim whitespace from the new storage
+        if (trimmedStorage && !storageSystems.includes(trimmedStorage)) {
+            setStorageSystems([...storageSystems, trimmedStorage]);
             setNewStorage("");
         }
     };
