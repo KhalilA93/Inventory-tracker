@@ -17,3 +17,22 @@ describe("ItemComponent - handleAddItem", () => {
     expect(screen.getByText("Test Item (Quantity: 5)")).toBeInTheDocument();
   });
 });
+
+describe("ItemComponent - handleDeleteItem", () => {
+  it("deletes an item from the list", () => {
+    render(<ItemComponent selectedGame="Test Game" selectedStorage="Test Storage" />);
+
+    const itemNameInput = screen.getByPlaceholderText("Item Name");
+    const itemQuantityInput = screen.getByPlaceholderText("Quantity");
+    const addButton = screen.getByText("Add Item");
+
+    fireEvent.change(itemNameInput, { target: { value: "Test Item" } });
+    fireEvent.change(itemQuantityInput, { target: { value: 5 } });
+    fireEvent.click(addButton);
+
+    const deleteButton = screen.getByText("Delete", { selector: "button" });
+    fireEvent.click(deleteButton);
+
+    expect(screen.queryByText("Test Item (Quantity: 5)")).not.toBeInTheDocument();
+  });
+});

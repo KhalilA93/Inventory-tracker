@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const GameComponent = ({ onGameSelect }) => {
-    const [games, setGames] = useState([""]); // Initial games
+    const [games, setGames] = useState([]); // Initial games should be an empty array
     const [selectedGame, setSelectedGame] = useState("");
     const [newGame, setNewGame] = useState("");
 
@@ -14,8 +14,9 @@ const GameComponent = ({ onGameSelect }) => {
 
     // Handle adding a new game
     const handleAddGame = () => {
-        if (newGame.trim() && !games.includes(newGame)) {
-            setGames([...games, newGame]);
+        const trimmedGame = newGame.trim(); // Trim whitespace from the new game
+        if (trimmedGame && !games.includes(trimmedGame)) {
+            setGames([...games, trimmedGame]);
             setNewGame("");
         }
     };
