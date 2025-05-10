@@ -50,7 +50,7 @@ const ItemComponent = ({ selectedGame, selectedStorage }) => {
 
                     {/* Display the list of items */}
                     <h3>Items</h3>
-                    <ul>
+                    <ul aria-label="Items">
                         {items
                             .filter(
                                 (item) =>

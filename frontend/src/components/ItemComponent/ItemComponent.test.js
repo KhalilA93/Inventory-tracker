@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, within } from "@testing-library/react";
 import ItemComponent from "./ItemComponent";
 
 describe("ItemComponent - handleAddItem", () => {
@@ -14,7 +14,8 @@ describe("ItemComponent - handleAddItem", () => {
     fireEvent.change(itemQuantityInput, { target: { value: 5 } });
     fireEvent.click(addButton);
 
-    expect(screen.getByText("Test Item (Quantity: 5)")).toBeInTheDocument();
+    const itemList = screen.getByRole("list", { name: "Items" });
+    expect(within(itemList).getByText("Test Item (Quantity: 5)")).toBeInTheDocument();
   });
 });
 

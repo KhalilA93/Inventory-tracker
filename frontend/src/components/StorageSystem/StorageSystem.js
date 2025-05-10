@@ -65,8 +65,8 @@ const StorageSystem = ({ selectedGame, onStorageSelect }) => {
                     </div>
 
                     {/* List of storage systems with delete buttons */}
-                    <h3>Available Storage Systems</h3>
-                    <ul>
+                    <h3 id="storage-systems-label">Available Storage Systems</h3>
+                    <ul aria-labelledby="storage-systems-label">
                         {storageSystems.map((system, index) => (
                             <li key={index}>
                                 {system}{" "}

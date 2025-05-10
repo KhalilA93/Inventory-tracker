@@ -36,7 +36,7 @@ const GameComponent = ({ onGameSelect }) => {
 
             {/* Dropdown to select a game */}
             <label htmlFor="game-select">Choose a game:</label>
-            <select id="game-select" value={selectedGame} onChange={handleSelectGame}>
+            <select id="game-select" value={selectedGame} onChange={handleSelectGame} aria-label="Game Dropdown">
                 <option value="">--Select a Game--</option>
                 {games.map((game, index) => (
                     <option key={index} value={game}>
@@ -59,7 +59,7 @@ const GameComponent = ({ onGameSelect }) => {
 
             {/* List of games with delete buttons */}
             <h3>Available Games</h3>
-            <ul>
+            <ul aria-label="Available Games">
                 {games.map((game, index) => (
                     <li key={index}>
                         {game}{" "}

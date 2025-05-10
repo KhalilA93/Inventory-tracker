@@ -12,7 +12,7 @@ describe("GameComponent", () => {
     const mockOnGameSelect = jest.fn();
     render(<GameComponent onGameSelect={mockOnGameSelect} />);
 
-    const dropdown = screen.getByLabelText("Choose a game:");
+    const dropdown = screen.getByLabelText("Game Dropdown");
     expect(dropdown).toBeInTheDocument();
 
     const option = document.createElement("option");
