@@ -46,4 +46,4 @@ describe("ParentComponent - ItemComponent Integration", () => {
     const item = within(itemList).getByText("Test Item (Quantity: 5)");
     expect(item).toBeInTheDocument();
   });
-});
+}); //full test for the ParentComponent with ItemComponent integration

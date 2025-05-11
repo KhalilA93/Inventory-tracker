@@ -1,9 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { fetchGames, addGame, deleteGame } from "../../api/apiService";
 
 const GameComponent = ({ onGameSelect }) => {
     const [games, setGames] = useState([]); // Initial games should be an empty array
     const [selectedGame, setSelectedGame] = useState("");
     const [newGame, setNewGame] = useState("");
+    const [error, setError] = useState(null);
+
+    // Fetch games on component mount
+    useEffect(() => {
+        const loadGames = async () => {
+            try {
+                const response = await fetchGames();
+                setGames(response.data);
+            } catch (err) {
+                setError("Failed to load games. Please try again later.");
+            }
+        };
+        loadGames();
+    }, []);
 
     // Handle selecting a game from the dropdown
     const handleSelectGame = (event) => {
@@ -13,26 +28,38 @@ const GameComponent = ({ onGameSelect }) => {
     };
 
     // Handle adding a new game
-    const handleAddGame = () => {
+    const handleAddGame = async () => {
         const trimmedGame = newGame.trim(); // Trim whitespace from the new game
         if (trimmedGame && !games.includes(trimmedGame)) {
-            setGames([...games, trimmedGame]);
-            setNewGame("");
+            try {
+                const response = await addGame({ name: trimmedGame });
+                setGames([...games, response.data.name]);
+                setNewGame("");
+            } catch (err) {
+                setError("Failed to add game. Please try again later.");
+            }
         }
     };
 
     // Handle deleting a game
-    const handleDeleteGame = (gameName) => {
-        setGames(games.filter((game) => game !== gameName));
-        if (selectedGame === gameName) {
-            setSelectedGame(""); // Clear selected game if it was deleted
-            onGameSelect(""); // Notify parent
+    const handleDeleteGame = async (gameName) => {
+        try {
+            await deleteGame(gameName);
+            setGames(games.filter((game) => game !== gameName));
+            if (selectedGame === gameName) {
+                setSelectedGame(""); // Clear selected game if it was deleted
+                onGameSelect(""); // Notify parent
+            }
+        } catch (err) {
+            setError("Failed to delete game. Please try again later.");
         }
     };
 
     return (
         <div>
             <h2>Game Component</h2>
+
+            {error && <p style={{ color: "red" }}>{error}</p>}
 
             {/* Dropdown to select a game */}
             <label htmlFor="game-select">Choose a game:</label>
