@@ -12,7 +12,8 @@ const GameComponent = ({ onGameSelect }) => {
         const loadGames = async () => {
             try {
                 const response = await fetchGames();
-                setGames(response.data);
+                const fetchedGames = Array.isArray(response.data) ? response.data : [];
+                setGames(fetchedGames.filter(game => game.name));
             } catch (err) {
                 setError("Failed to load games. Please try again later.");
             }
@@ -65,9 +66,9 @@ const GameComponent = ({ onGameSelect }) => {
             <label htmlFor="game-select">Choose a game:</label>
             <select id="game-select" value={selectedGame} onChange={handleSelectGame} aria-label="Game Dropdown">
                 <option value="">--Select a Game--</option>
-                {games.map((game, index) => (
-                    <option key={index} value={game}>
-                        {game}
+                {games.map((game) => (
+                    <option key={game._id} value={game.name}>
+                        {game.name}
                     </option>
                 ))}
             </select>
